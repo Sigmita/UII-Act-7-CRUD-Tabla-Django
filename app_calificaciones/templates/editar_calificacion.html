@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Calificación</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        form { max-width: 400px; }
+        label { display: block; margin: 10px 0 5px; }
+        input, select { width: 100%; padding: 8px; margin-bottom: 10px; }
+        button { background-color: #007BFF; color: white; padding: 10px 15px; border: none; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Editar Calificación</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label>ID Usuario:</label>
+        <input type="number" name="id_usuario" value="{{ calificacion.id_usuario }}" required>
+
+        <label>ID Contenido:</label>
+        <input type="number" name="id_contenido" value="{{ calificacion.id_contenido }}" required>
+
+        <label>Tipo de Contenido:</label>
+        <select name="tipo_contenido" required>
+            <option value="pelicula" {% if calificacion.tipo_contenido == 'pelicula' %}selected{% endif %}>Película</option>
+            <option value="serie" {% if calificacion.tipo_contenido == 'serie' %}selected{% endif %}>Serie</option>
+            <option value="documental" {% if calificacion.tipo_contenido == 'documental' %}selected{% endif %}>Documental</option>
+            <option value="otro" {% if calificacion.tipo_contenido == 'otro' %}selected{% endif %}>Otro</option>
+        </select>
+
+        <label>Puntuación (1-5):</label>
+        <input type="number" name="puntuacion" value="{{ calificacion.puntuacion }}" min="1" max="5" required>
+
+        <button type="submit">Actualizar</button>
+    </form>
+    <a href="/">Volver al listado</a>
+</body>
+</html>
